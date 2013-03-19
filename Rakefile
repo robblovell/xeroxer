@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "xeroxer"
   gem.homepage = "http://github.com/robblovell/xeroxer"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Xeroxer copies files from one url to another.  Three url types are supported: S3, http(s), and files}
+  gem.description = %Q{Xeroxer copies files from one url to another.  Three url types are supported: S3, http(s), and files}
   gem.email = "robblovell@gmail.com"
   gem.authors = ["Robb Lovell"]
   # dependencies defined in Gemfile
