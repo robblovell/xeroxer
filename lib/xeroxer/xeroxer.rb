@@ -11,8 +11,7 @@ module Xeroxer
       :storage => :s3,
       :s3_domain => "s3.amazonaws.com",
       :s3_protocol => "http",
-      :s3_credentials =>  {
-                          }
+      :s3_credentials =>  {                          }
   }
   @config_keys = @config.keys
 

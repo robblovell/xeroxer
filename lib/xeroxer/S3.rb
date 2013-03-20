@@ -3,7 +3,7 @@
 module Xeroxer
 
   class S3 < Resource
-    def initialize(uri)
+    def initialize(uri,options={})
       @type = Xeroxer::BLOCKREAD
       # if the s3 url has a 4 part domain name, then the bucket has been specified first.
       # in this case, URI can't handle it and we need to rearrage the bucket to be after
@@ -24,8 +24,22 @@ module Xeroxer
       @key=parts[2]+"#{parts[3..-1].map { |p| "/#{p}" }}"
 
       @s3host=@uri.host
-      @s3 = AWS::S3.new(:access_key_id => Xeroxer.config[:s3_credentials][:access_key_id],
-                        :secret_access_key => Xeroxer.config[:s3_credentials][:secret_access_key])
+      # if credentials are in the options use those, otherwise,
+      # look up the bucket in the configuration, if it's there,
+      # get it's credentials.
+      if !options[:s3_credentials].nil?
+        credentials=options[:s3_credentials]
+      elsif !Xeroxer.config[@bucket_name].nil? &&
+            !Xeroxer.config[@bucket_name][:s3_credentials].nil?
+        Xeroxer.config[@bucket_name][:s3_credentials]
+      elsif !Xeroxer.config[:s3_credentials].nil? &&
+            !Xeroxer.config[:s3_credentials].empty?# fall back to this default.
+        credentials=Xeroxer.config[:s3_credentials]
+      else
+        raise NoS3CredentialsGiven
+      end
+      @s3 = AWS::S3.new(:access_key_id => credentials[:access_key_id],
+                        :secret_access_key => credentials[:secret_access_key])
       @bucket = @s3.buckets[@bucket_name]
     end
 
