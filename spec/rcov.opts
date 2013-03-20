@@ -1,2 +1,2 @@
 --exclude "spec/*,test/*"
---aggregate "spec/cov.data
+--aggregate "spec/coverage.data

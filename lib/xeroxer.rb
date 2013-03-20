@@ -9,6 +9,11 @@ module Xeroxer
   Xeroxer::BUF_SIZE = 4194304
   Xeroxer::GETPUT = 0
   Xeroxer::OPENCLOSE = 1
+  Xeroxer::S3TYPE = 0
+  Xeroxer::FILETYPE = 1
+  Xeroxer::HTTPTYPE = 2
+  Xeroxer::BLOCKREAD = 0
+  Xeroxer::NOBLOCKREAD = 1
 
   # Configuration setup
   @config = {
@@ -67,42 +72,48 @@ module Xeroxer
     end
   end
 
-  
+  def self.copy(source, destination, options = {} )
+    source = Resource.create(source)
+    destination = Resource.create(destination)
+    destination.open("w")
+    source.open("r")
+    destination.write(source)
+  end
   ## all copies are done as streams, never read into memory entirely.
   ## destination must have block open and source must have block read.
-  def self.copy(source, destination, options = {} )
+  def self.copy2(source, destination, options = {} )
     # source or destination can be an AWS::S3 bucket, an S3 url, Net::HTTP resource, http url, https url, File, or file url.
     # convert urls into HTTP, File, or Bucket objects.
     source = Resource.create(source)
     destination = Resource.create(destination)
     ## stream the data from source to destination.
-    source.open("r")
-    destination.open("w")
-    while buf = source.read do
-      destination.write(buf)
+    source.open2("r")
+    destination.open2("w")
+    while buf = source.read2 do
+      destination.write2(buf)
     end
-    destination.close()
-    source.close()
+    destination.close2()
+    source.close2()
   end
 
-  def self.getput(source, destination, options = {} )
+  def self.getput2(source, destination, options = {} )
     # source or destination can be an AWS::S3 bucket,
     # an S3 url, Net::HTTP resource, http url, https url,
     # File, or file url. convert urls into HTTP, File,
     # or Bucket objects.
     source = Resource.create(source)
     destination = Resource.create(destination)
-    source.put(destination)
+    source.put2(destination)
   end
 
-  def self.putget(source, destination, options = {} )
+  def self.putget2(source, destination, options = {} )
     # source or destination can be an AWS::S3 bucket,
     # an S3 url, Net::HTTP resource, http url, https url,
     # File, or file url. convert urls into HTTP, File,
     # or Bucket objects.
     source = Resource.create(source)
     destination = Resource.create(destination)
-    destination.get(source)
+    destination.get2(source)
   end
 
 end

@@ -6,7 +6,7 @@ module Xeroxer
 
   class S3
     def initialize(uri)
-      @type = Xeroxer::GETPUT
+      @type = Xeroxer::BLOCKREAD
       # if the s3 url has a 4 part domain name, then the bucket has been specified first.
       # in this case, URI can't handle it and we need to rearrage the bucket to be after
       # the domain name.
@@ -34,13 +34,18 @@ module Xeroxer
     #private
     attr_reader :type, :uri, :s3, :bucket_name, :path, :s3host, :bucket
 
+    def get()
+      return @object
+    end
+
     def open(direction, &block)
       @bucket = @s3.buckets[@bucket_name]
       @object = @bucket.objects[@key]
     end
 
-    def write(chunk)
-      @object.write(chunk)
+    def write(resource)
+      resource.open("r")
+      @object.write(resource.get())
     end
 
     def read(&block)
@@ -50,29 +55,45 @@ module Xeroxer
     def close()
     end
 
-    def get(source)
-      open("w")
-      src = source.open("r")
-      write(src)
-
-      close()
-      src.close()
-    end
-
-    def put(destination)
-      open("r")
-      destination.open("w")
-      #if false && @object.content_length < Xeroxer::BUF_SIZE
-      #  buff = @object.read()
-      #  destination.write(buff)
-      #else
-      read() do |chunk|
-        destination.write(chunk)
-      end
-      #end
-      close
-      destination.close
-    end
+    #def open2(direction, &block)
+    #  @bucket = @s3.buckets[@bucket_name]
+    #  @object = @bucket.objects[@key]
+    #end
+    #
+    #def write2(chunk)
+    #  @object.write(chunk)
+    #end
+    #
+    #def read2(&block)
+    #  @object.read(&block)
+    #end
+    #
+    #def close2()
+    #end
+    #
+    #def get2(source)
+    #  open2("w")
+    #  src = source.open2("r")
+    #  write2(src)
+    #
+    #  close2()
+    #  source.close2()
+    #end
+    #
+    #def put2(destination)
+    #  open2("r")
+    #  destination.open2("w")
+    #  #if false && @object.content_length < Xeroxer::BUF_SIZE
+    #  #  buff = @object.read()
+    #  #  destination.write(buff)
+    #  #else
+    #  read2() do |chunk|
+    #    destination.write2(chunk)
+    #  end
+    #  #end
+    #  close2
+    #  destination.close2
+    #end
 
   end
 end
