@@ -27,7 +27,10 @@ describe Xeroxer do
 
     @s3 = AWS::S3.new(:access_key_id => @s3_cred[:s3_credentials][:access_key_id],
                       :secret_access_key => @s3_cred[:s3_credentials][:secret_access_key])
+
+    @s3.buckets.create(@s3_cred[:bucket], :acl => :public_read_write)
     @bucket = @s3.buckets[@s3_cred[:bucket]]
+
 
     @source_s3_uri="s3://"+@s3_cred[:bucket]+"."+@s3_cred[:s3_domain]+"/"+@s3_cred[:path]+"/#{source_file}"
     @source_s3_bucket= @s3_cred[:bucket]
@@ -40,13 +43,29 @@ describe Xeroxer do
     Xeroxer.config[:s3_credentials] =
                                        {:access_key_id => access,
                                        :secret_access_key => secret }
+    @object = @bucket.objects[@source_s3_path]
+    content = "you're a big cheese lovell, you're a big cheese you."
+    @object.write(content)
+
+    f = File.open(@source_file_path,"w")
+    f.write(content)
+    f.close
+
   end
 
   after(:all) do
     puts "cleanup, delete #{@destination_file_path} and #{@destination_s3_path}"
+    puts "cleanup, delete #{@source_file_path} and #{@source_s3_path}"
+    puts "delete the test bucket"
+    File.delete(@source_file_path) if File.exists?(@source_file_path)
     File.delete(@destination_file_path) if File.exists?(@destination_file_path)
     obj = @bucket.objects[@destination_s3_path]
     obj.delete if obj.exists?
+    obj = @bucket.objects[@source_s3_path]
+    obj.delete if obj.exists?
+    @bucket.delete
+
+    #@s3.buckets.delete(@s3_cred[:bucket])
   end
 
   describe "Exceptions" do
