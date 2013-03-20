@@ -8,7 +8,7 @@ describe Xeroxer do
     access = ENV["s3access"]
     secret = ENV["s3secret"]
     @s3_cred = {:storage => :s3,
-                :bucket => "xeroxer_test",
+                :bucket => "xeroxer-test",
                 :path => "xeroxer",
                 :s3_domain => "s3.amazonaws.com",
                 :s3_protocol => "http",
@@ -37,10 +37,16 @@ describe Xeroxer do
     @destination_s3_bucket= @s3_cred[:bucket]
     @destination_s3_path= @s3_cred[:path]+"/#{dest_file}"
 
-
     Xeroxer.config[:s3_credentials] =
                                        {:access_key_id => access,
                                        :secret_access_key => secret }
+  end
+
+  after(:all) do
+    puts "cleanup, delete #{@destination_file_path} and #{@destination_s3_path}"
+    File.delete(@destination_file_path) if File.exists?(@destination_file_path)
+    obj = @bucket.objects[@destination_s3_path]
+    obj.delete if obj.exists?
   end
 
   describe "Exceptions" do
@@ -107,7 +113,7 @@ describe Xeroxer do
     end
     it "Should copy a file to s3" do
       obj = @bucket.objects[@destination_s3_path]
-      lambda { obj.delete if obj.exists? }
+      obj.delete if obj.exists?
       puts "\nCopy file to S3"
       time = Benchmark.measure do
         Xeroxer.copy(@source_file_uri, @destination_s3_uri)
