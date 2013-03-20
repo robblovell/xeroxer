@@ -11,7 +11,9 @@ describe Xeroxer do
                 :path => "xeroxer",
                 :s3_domain => "s3.amazonaws.com",
                 :s3_protocol => "http",
-                :s3_credentials => {}}
+                :s3_credentials =>  {:access_key_id => access,
+                                       :secret_access_key => secret }
+               }
                
     # test of larger files:  You will need to get your own.
     #source_file = "bigsrc.mp3"
