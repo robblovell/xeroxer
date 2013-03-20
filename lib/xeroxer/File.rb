@@ -4,7 +4,7 @@ module Xeroxer
 
   class File < Resource
 
-    def initialize(uri)
+    def initialize(uri,options={})
       @type = Xeroxer::NOBLOCKREAD
       if uri.instance_of? String
         # if it's a file, we want to suppor trealtive uri's,

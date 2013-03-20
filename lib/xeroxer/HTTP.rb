@@ -1,6 +1,6 @@
 module Xeroxer
   class HTTP < Resource
-    def initialize(uri)
+    def initialize(uri,options={})
       @type=Xeroxer::BLOCKREAD
       @uri=uri
     end
