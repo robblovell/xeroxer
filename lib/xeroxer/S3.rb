@@ -1,6 +1,4 @@
-require 'xeroxer'
-require 'yaml'
-require 'ap'
+
 
 module Xeroxer
 

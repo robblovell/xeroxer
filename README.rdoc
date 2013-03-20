@@ -16,8 +16,6 @@ I have checked in a binstubs directory (./bin).  I will eventually remove it, bu
 
 bundle --binstubs
 
-The rubymine project is checked in too and should be removed too.
-
 = configuration
 
 Xeroxer config values are:

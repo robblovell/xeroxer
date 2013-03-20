@@ -1,5 +1,3 @@
-require 'aws-sdk'
-require 'uri'
 
 module Xeroxer
 

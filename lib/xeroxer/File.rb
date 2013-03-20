@@ -1,5 +1,4 @@
-require 'xeroxer'
-require 'fileutils'
+
 
 module Xeroxer
 

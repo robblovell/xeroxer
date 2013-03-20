@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'aws-sdk'
 require 'benchmark'
 
 describe Xeroxer do
@@ -14,6 +13,7 @@ describe Xeroxer do
                 :s3_protocol => "http",
                 :s3_credentials => {}}
                
+    # test of larger files:  You will need to get your own.
     #source_file = "bigsrc.mp3"
     #dest_file = "bigdst.mp3"
     #@expected_size = 17587639
@@ -54,9 +54,9 @@ describe Xeroxer do
   end
 
   after(:all) do
-    puts "cleanup, delete #{@destination_file_path} and #{@destination_s3_path}"
-    puts "cleanup, delete #{@source_file_path} and #{@source_s3_path}"
-    puts "delete the test bucket"
+    #puts "cleanup, delete #{@destination_file_path} and #{@destination_s3_path}"
+    #puts "cleanup, delete #{@source_file_path} and #{@source_s3_path}"
+    #puts "delete the test bucket"
     File.delete(@source_file_path) if File.exists?(@source_file_path)
     File.delete(@destination_file_path) if File.exists?(@destination_file_path)
     obj = @bucket.objects[@destination_s3_path]
@@ -162,7 +162,7 @@ describe Xeroxer do
       File.zero?(@destination_file_path).should be_false
       uri = @destination_file_uri
       filename = Dir.pwd+uri[8..-1]
-      puts File.stat(filename).size
+      puts File.stat(filename).size-10
       File.stat(filename).size.should == @expected_size
     end
   end
