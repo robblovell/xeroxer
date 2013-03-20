@@ -2,7 +2,9 @@
 
 Xeroxer is a utility for copying files around with one handy "copy" that takes a source url and a destination url.  The handy thing is that it works with http(s), file, and s3 urls.  That's right, one utility to copy things around between exteranl http addresses, local disks, and s3.
 
-Disclaimer: this is an incomplete project as it stands right now.  Only three copies work: file to file, s3 to file, and file to s3.  Still to be implemented: file to http, http to file, s3 to http, http to s3.
+Disclaimer: this is an incomplete project as it stands right now.  Only three copies work: file to file, s3 to file, and file to s3.  Still to be implemented: file to http(s), http(s) to file, s3 to http(s), http(s) to s3, s3 to s3, http(s) to http(s).
+
+Also, it is currently written in 1.8.7 ease because I have a big project still stuck in that wasteland.  Eventually, it will be upgraded to 1.9.3 and then to 2.0 ruby.
 
 = install
 
