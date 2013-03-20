@@ -12,7 +12,6 @@ Gem::Specification.new do |s|
   s.date = %q{2013-03-20}
   s.description = %q{Xeroxer copies files from one url to another.  Three url types are supported: S3, http(s), and files}
   s.email = %q{robblovell@gmail.com}
-  s.executables = ["jeweler", "ri", "rcov", "convert_to_should_syntax", "rake"]
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
@@ -27,11 +26,6 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "bin/convert_to_should_syntax",
-    "bin/jeweler",
-    "bin/rake",
-    "bin/rcov",
-    "bin/ri",
     "lib/xeroxer.rb",
     "lib/xeroxer/File.rb",
     "lib/xeroxer/HTTP.rb",
@@ -43,7 +37,8 @@ Gem::Specification.new do |s|
     "spec/resources/.gitkeep",
     "spec/spec.opts",
     "spec/spec_helper.rb",
-    "spec/xeroxer_spec.rb"
+    "spec/xeroxer_spec.rb",
+    "xeroxer.gemspec"
   ]
   s.homepage = %q{http://github.com/robblovell/xeroxer}
   s.licenses = ["MIT"]

@@ -3,6 +3,7 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 gem 'aws-sdk', "~> 1.8.5"
+#gem 'rake', "0.9.2.2", :require => false
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development,:test do
