@@ -1,3 +1,5 @@
 module Xeroxer
-  class ProtocolNotSupported < StandardError; end
+  class ProtocolNotSupported < Exception; end
+  class BlockReadNotSupported < Exception; end
+  class MalformedUrl < Exception; end
 end
