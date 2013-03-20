@@ -1,6 +1,46 @@
 = xeroxer
 
-Description goes here.
+Xeroxer is a utility for copying files around with one handy "copy" that takes a source url and a destination url.  The handy thing is that it works with http(s), file, and s3 urls.  That's right, one utility to copy things around between exteranl http addresses, local disks, and s3.
+
+Disclaimer: this is an incomplete project as it stands right now.  Only three copies work: file to file, s3 to file, and file to s3.  Still to be implemented: file to http, http to file, s3 to http, http to s3.
+
+= install
+
+gem install xeroxer
+
+bundle install
+
+I have checked in a binstubs directory (./bin).  I will eventually remove it, but you can recreate it with:
+
+bundle --binstubs
+
+= configuration
+
+Xeroxer config values are:
+
+      :buffer_size => 4194304, # 4 MB
+      :storage => :s3,
+      :s3_domain => "s3.amazonaws.com",
+      :s3_protocol => "http",
+      :s3_credentials =>  { :access_key_id => "replace with your s3 access key",
+                            :secret_access_key => "replace with your s3 secret key" }
+
+They can be set as follows:
+
+  Xeroxer.config["s3_credentials"] = { :access_key_id => "replace with your s3 access key",
+                                       :secret_access_key => "replace with your s3 secret key" }
+
+In theory, you can set config settings in a xeroxer.yml file, but this is not tested yet.  Still to do is a rails initializer
+
+= testing xeroxer
+
+To test xeroxer, you need an s3 account and a key/secret pair.  Set the system environment variables "bucket" "s3access" and "s3secret" that has read/write access to the bucket specfied in your account.  The default value of "bucket" is xeroxer_test, so if you have that bucket on your account you don't need to set the "bucket" environment variable.
+
+Once the environment variables are setup and you have set all the permissions on your s3 bucket, you can run a test that copies a small file around between endpoints:
+
+bin/rspec
+
+
 
 == Contributing to xeroxer
  

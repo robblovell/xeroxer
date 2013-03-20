@@ -5,13 +5,15 @@ require 'benchmark'
 describe Xeroxer do
 
   before(:all) do
+    access = ENV["s3access"]
+    secret = ENV["s3secret"]
     @s3_cred = {:storage => :s3,
-                :bucket => "vidigami_scratch",
-                :dns_bucket => "vidigami_scratch.s3.amazonaws.com",
+                :bucket => "xeroxer_test",
                 :path => "xeroxer",
                 :s3_domain => "s3.amazonaws.com",
                 :s3_protocol => "http",
                 :s3_credentials => {}}
+               
     #source_file = "bigsrc.mp3"
     #dest_file = "bigdst.mp3"
     #@expected_size = 17587639
@@ -26,9 +28,6 @@ describe Xeroxer do
     @s3 = AWS::S3.new(:access_key_id => @s3_cred[:s3_credentials][:access_key_id],
                       :secret_access_key => @s3_cred[:s3_credentials][:secret_access_key])
     @bucket = @s3.buckets[@s3_cred[:bucket]]
-    if (!@bucket.exists?)
-      @bucket = @s3.buckets.create(@s3_cred[:dns_bucket])
-    end
 
     @source_s3_uri="s3://"+@s3_cred[:bucket]+"."+@s3_cred[:s3_domain]+"/"+@s3_cred[:path]+"/#{source_file}"
     @source_s3_bucket= @s3_cred[:bucket]
@@ -37,18 +36,21 @@ describe Xeroxer do
     @destination_s3_uri="s3://"+@s3_cred[:bucket]+"."+@s3_cred[:s3_domain]+"/"+@s3_cred[:path]+"/#{dest_file}"
     @destination_s3_bucket= @s3_cred[:bucket]
     @destination_s3_path= @s3_cred[:path]+"/#{dest_file}"
+
+
+    Xeroxer.config[:s3_credentials] =
+                                       {:access_key_id => access,
+                                       :secret_access_key => secret }
   end
 
   describe "Exceptions" do
     it "should rais exception Protocol Not Supported" do
-      lambda { Xeroxer.copy2("blah", "blah") }.should raise_error Xeroxer::ProtocolNotSupported
+      lambda { Xeroxer.copy("blah", "blah") }.should raise_error Xeroxer::ProtocolNotSupported
     end
   end
 
   describe "Xerox enumeration" do
     it "should return valid values" do
-      Xeroxer::GETPUT.should == 0
-      Xeroxer::OPENCLOSE.should == 1
       r = Xeroxer::S3.new("s3://amazon.s3.com/bucket/thing")
       r.type.should == Xeroxer::BLOCKREAD
       r = Xeroxer::File.new("file:://path/path/thing")

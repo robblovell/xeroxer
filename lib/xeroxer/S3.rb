@@ -4,7 +4,7 @@ require 'ap'
 
 module Xeroxer
 
-  class S3
+  class S3 < Resource
     def initialize(uri)
       @type = Xeroxer::BLOCKREAD
       # if the s3 url has a 4 part domain name, then the bucket has been specified first.
@@ -54,46 +54,6 @@ module Xeroxer
 
     def close()
     end
-
-    #def open2(direction, &block)
-    #  @bucket = @s3.buckets[@bucket_name]
-    #  @object = @bucket.objects[@key]
-    #end
-    #
-    #def write2(chunk)
-    #  @object.write(chunk)
-    #end
-    #
-    #def read2(&block)
-    #  @object.read(&block)
-    #end
-    #
-    #def close2()
-    #end
-    #
-    #def get2(source)
-    #  open2("w")
-    #  src = source.open2("r")
-    #  write2(src)
-    #
-    #  close2()
-    #  source.close2()
-    #end
-    #
-    #def put2(destination)
-    #  open2("r")
-    #  destination.open2("w")
-    #  #if false && @object.content_length < Xeroxer::BUF_SIZE
-    #  #  buff = @object.read()
-    #  #  destination.write(buff)
-    #  #else
-    #  read2() do |chunk|
-    #    destination.write2(chunk)
-    #  end
-    #  #end
-    #  close2
-    #  destination.close2
-    #end
 
   end
 end
