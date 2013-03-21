@@ -34,7 +34,7 @@ In theory, you can set config settings in a xeroxer.yml file, but this is not te
 
 Simplest form, use the default credentials to copy files to s3 or back.
 
-    Xeroxer.copy("file://path/path/path/file.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext"
+    Xeroxer.copy("file://path/file.ext", "s3://bucket.s3.amazon.com/path/file.ext"
 
 You can set default the credentials for all copies like so:
 
@@ -44,24 +44,31 @@ Alternatives:
 
 You can set credentials to use to copy to and from a particular bucket.  If you use this bucket with specified credentials in an s3:// url, Xeroxer will use the credentials you have specified for that bucket and not the default one.       NOT WORKING YET!
 
-    Xeroxer::configure({:bucketname => {:s3_credentials=> {:access_key_id => your_key, :secret_access_key => your_secret}}})
+    Xeroxer::configure({:bucketname => {:s3_credentials=>
+                                       {:access_key_id => your_key, :secret_access_key => your_secret}}})
 
 Or you can pass everything in one go: (Passed in credentials to a Xeroxer.copy will override any other credentials given. )
 
-    Xeroxer.copy("file://path/path/path/file.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext", {:s3_credentials=> {:access_key_id => your_key, :secret_access_key => your_secret}})
+    Xeroxer.copy("file://path/file.ext",
+                 "s3://bucket.s3.amazon.com/path/path/file.ext",
+                 {:s3_credentials=> {:access_key_id => your_key, :secret_access_key => your_secret}})
 
 You can also copy files around locally, no credentials required, assumed read/write privileges:
 
-    Xeroxer.copy("file://path/path/path/file1.ext", "file://path/path/path/file2.ext"
+    Xeroxer.copy("file://path/file1.ext", "file://path/file2.ext"
+
+Relative paths work in urls even though this is not allowed normally.  The must start with a "./" to work:
+
+    Xeroxer.copy("file://./relativepath/file1.ext", "file://path/file2.ext"
 
 NOT IMPLEMENTED YET:
 
-    Xeroxer.copy("file://path/path/path/file1.ext", "http://url/path/path/path/file2.ext")
-    Xeroxer.copy("http://url/path/path/path/file1.ext", "file://path/path/path/file2.ext")
-    Xeroxer.copy("s3://bucket.s3.amazon.com/path/path/path/file.ext", "http://url/path/path/path/file2.ext")
-    Xeroxer.copy("http://url/path/path/path/file2.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext")
-    Xeroxer.copy("http://url/path/path/path/file2.ext", "http://url/path/path/path/file2.ext")
-    Xeroxer.copy("s3://bucket.s3.amazon.com/path/path/path/file.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext")
+    Xeroxer.copy("file://path/file1.ext", "http://url/path/file2.ext")
+    Xeroxer.copy("http://url/path/file1.ext", "file://path/file2.ext")
+    Xeroxer.copy("s3://bucket.s3.amazon.com/path/file.ext", "http://url/path/file2.ext")
+    Xeroxer.copy("http://url/path/file2.ext", "s3://bucket.s3.amazon.com/path/file.ext")
+    Xeroxer.copy("http://url/path/file2.ext", "http://url/path/file2.ext")
+    Xeroxer.copy("s3://bucket.s3.amazon.com/path/file.ext", "s3://bucket.s3.amazon.com/path/file.ext")
 
 
 = testing xeroxer
