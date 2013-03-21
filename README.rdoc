@@ -71,7 +71,7 @@ NOT IMPLEMENTED YET:
     Xeroxer.copy("s3://bucket.s3.amazon.com/path/file.ext", "s3://bucket.s3.amazon.com/path/file.ext")
 
 
-= testing xeroxer
+= testing
 
 To test xeroxer, you need an s3 account and a key/secret pair.  Set the system environment variables "bucket" "s3access" and "s3secret" that has read/write access to the bucket specfied in your account.  The default value of "bucket" is xeroxer_test, so if you have that bucket on your account you don't need to set the "bucket" environment variable.
 

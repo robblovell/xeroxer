@@ -1,6 +1,7 @@
 require 'rubygems'
 #require 'bundler/setup'
 require 'bundler'
+require 'rspec'
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -24,5 +25,4 @@ RSpec.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
   config.mock_with :rspec
-
 end
