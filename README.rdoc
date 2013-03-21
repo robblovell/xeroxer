@@ -12,10 +12,6 @@ gem install xeroxer
 
 bundle install
 
-I have checked in a binstubs directory (./bin).  I will eventually remove it, but you can recreate it with:
-
-bundle --binstubs
-
 = configuration
 
 Xeroxer config values are:
