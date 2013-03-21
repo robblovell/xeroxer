@@ -30,6 +30,40 @@ They can be set as follows:
 
 In theory, you can set config settings in a xeroxer.yml file, but this is not tested yet.  Still to do is a rails initializer
 
+= usage
+
+Simplest form, use the default credentials to copy files to s3 or back.
+
+    Xeroxer.copy("file://path/path/path/file.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext"
+
+You can set default the credentials for all copies like so:
+
+    Xeroxer::configure({:s3_credentials=> {:access_key_id => your_key, :secret_access_key => your_secret}})
+
+Alternatives:
+
+You can set credentials to use to copy to and from a particular bucket.  If you use this bucket with specified credentials in an s3:// url, Xeroxer will use the credentials you have specified for that bucket and not the default one.       NOT WORKING YET!
+
+    Xeroxer::configure({:bucketname => {:s3_credentials=> {:access_key_id => your_key, :secret_access_key => your_secret}}})
+
+Or you can pass everything in one go: (Passed in credentials to a Xeroxer.copy will override any other credentials given. )
+
+    Xeroxer.copy("file://path/path/path/file.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext", {:s3_credentials=> {:access_key_id => your_key, :secret_access_key => your_secret}})
+
+You can also copy files around locally, no credentials required, assumed read/write privileges:
+
+    Xeroxer.copy("file://path/path/path/file1.ext", "file://path/path/path/file2.ext"
+
+NOT IMPLEMENTED YET:
+
+    Xeroxer.copy("file://path/path/path/file1.ext", "http://url/path/path/path/file2.ext")
+    Xeroxer.copy("http://url/path/path/path/file1.ext", "file://path/path/path/file2.ext")
+    Xeroxer.copy("s3://bucket.s3.amazon.com/path/path/path/file.ext", "http://url/path/path/path/file2.ext")
+    Xeroxer.copy("http://url/path/path/path/file2.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext")
+    Xeroxer.copy("http://url/path/path/path/file2.ext", "http://url/path/path/path/file2.ext")
+    Xeroxer.copy("s3://bucket.s3.amazon.com/path/path/path/file.ext", "s3://bucket.s3.amazon.com/path/path/path/file.ext")
+
+
 = testing xeroxer
 
 To test xeroxer, you need an s3 account and a key/secret pair.  Set the system environment variables "bucket" "s3access" and "s3secret" that has read/write access to the bucket specfied in your account.  The default value of "bucket" is xeroxer_test, so if you have that bucket on your account you don't need to set the "bucket" environment variable.
