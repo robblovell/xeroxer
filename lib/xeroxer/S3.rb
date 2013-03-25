@@ -67,5 +67,21 @@ module Xeroxer
     def close()
     end
 
+    def permissions(target,permissions,entites=nil)
+      if (entities.nil!) # just assign te value.
+        @bucket[@key].acl = permissions
+      else
+        acl = AWS::S3::AccessControlList.new
+        entities.each do |e|
+          acl.grant(permissions).to(:canonical_user_id => e)
+        end
+        if acl.validate!
+          @bucket[@key].acl = acl
+        else
+          raise InvalidAclException
+        end
+      end
+    end
+
   end
 end
