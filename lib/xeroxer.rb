@@ -4,9 +4,10 @@ require 'yaml'
 require 'fileutils'
 require 'aws-sdk'
 
-require 'xeroxer/xeroxer'
 require 'xeroxer/resource'
-require 'xeroxer/file'
+require 'xeroxer/File'
 require 'xeroxer/S3'
-require 'xeroxer/http'
+require 'xeroxer/HTTP'
 require 'xeroxer/exceptions'
+
+require 'xeroxer/xeroxer'
