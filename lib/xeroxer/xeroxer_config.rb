@@ -6,11 +6,11 @@ module Xeroxer
 
   # Configuration setup
   @config = {
-      "buffer_size" => 4194304, # 4 MB
-      "storage" => :s3,
-      "s3_domain" => "s3.amazonaws.com",
-      "s3_protocol" => "http",
-      "s3_credentials" => {}
+      :buffer_size => 4194304, # 4 MB
+      :storage => :s3,
+      :s3_domain => "s3.amazonaws.com",
+      :s3_protocol => "http",
+      :s3_credentials => {}
   }
   @config_keys = @config.keys
 
@@ -19,14 +19,21 @@ module Xeroxer
     if (block_given?)
       block.call(@config)
     else
-      opts.each do |k, v|
-        @config[k] = v
-      end
+      @config = convert_hash_to_symkeys(opts)
     end
   end
 
-  # Configure through yaml file
-  def self.configure_with(path_to_yaml_file,environment=nil)
+  def self.convert_hash_to_symkeys(hash)
+    h = {}
+    hash.each do |k, v|
+      v = convert_hash_to_symkeys(v) if (v.class.name=='Hash')
+      h[k.to_sym] = v
+    end
+    h
+  end
+
+# Configure through yaml file
+  def self.configure_with(path_to_yaml_file, environment=nil)
     begin
       if (environment.nil?)
         config = YAML::load(IO.read(path_to_yaml_file))
@@ -47,5 +54,5 @@ module Xeroxer
     puts level.to_s+" "+message
   end
 
-  ## end configuration setup
+## end configuration setup
 end
