@@ -1,0 +1,15 @@
+  buffer_size: 8388608 # 4 MB
+  storage: :s3
+  s3_domain: "s3.amazonaws.com"
+  s3_protocol: "http"
+  s3_credentials:
+    access_key_id: 'some_s3_key'
+    secret_access_key: 'some_acces_key'
+  buckets:
+    some_bucket:
+       access_key_id: 'some_s3_key'
+       secret_access_key: 'some_acces_key'
+    another_bucket:
+       access_key_id: 'some_s3_key'
+       secret_access_key: 'some_acces_key'
+

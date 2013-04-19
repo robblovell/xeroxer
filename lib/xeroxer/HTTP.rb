@@ -1,3 +1,5 @@
+require 'xeroxer/xeroxer_config'
+
 module Xeroxer
   class HTTP < Resource
     def initialize(uri,options={})

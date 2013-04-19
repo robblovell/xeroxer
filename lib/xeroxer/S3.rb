@@ -1,3 +1,4 @@
+require 'xeroxer/xeroxer_config'
 
 
 module Xeroxer
