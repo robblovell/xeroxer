@@ -33,12 +33,14 @@ Gem::Specification.new do |s|
     "lib/xeroxer/exceptions.rb",
     "lib/xeroxer/resource.rb",
     "lib/xeroxer/xeroxer.rb",
+    "lib/xeroxer/xeroxer_config.rb",
     "spec/rcov.opts",
     "spec/resources/.gitkeep",
     "spec/spec.opts",
     "spec/spec_helper.rb",
+    "spec/xeroxer_config_spec.rb",
     "spec/xeroxer_perm_spec.rb",
-    "spec/xeroxer_spec.rb",
+    "spec/xeroxer_spec_file.rb",
     "xeroxer.gemspec"
   ]
   s.homepage = %q{http://github.com/robblovell/xeroxer}
