@@ -15,14 +15,14 @@ module Xeroxer
         if (domain_parts.length>3)
           # take out the bucket name because uri doesn't like it.
           uri = uri[0..4]+domain_parts[-3..-1].join('.')
-          uri += "/"+domain_parts[0]+parts[3..-1].join('/')
+          uri += "/"+domain_parts[0]+'/'+parts[3..-1].join('/')
         end
       end
 
       @uri = URI(uri) # amazon URI has the bucket as the first stop in the path.
       @bucket_name = @uri.path.split('/')[1]
       parts=@uri.path.split('/')
-      @key=parts[2]+"#{parts[3..-1].map { |p| "/#{p}" }}"
+      @key="#{parts[2..-1].join('/')}"
 
       @s3host=@uri.host
       # if credentials are in the options use those, otherwise,
