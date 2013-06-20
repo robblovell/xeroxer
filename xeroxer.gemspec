@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robb Lovell"]
-  s.date = %q{2013-06-19}
+  s.date = %q{2013-06-20}
   s.description = %q{Xeroxer copies files from one url to another.  Three url types are supported: S3, http(s), and files}
   s.email = %q{robblovell@gmail.com}
   s.extra_rdoc_files = [
