@@ -12,10 +12,10 @@ module Xeroxer
       if uri[0..4].downcase.start_with?("s3://")
         parts = uri.split('/')
         domain_parts = parts[2].split('.')
-        if (domain_parts.length>3)
+        if (domain_parts.length > 3)
           # take out the bucket name because uri doesn't like it.
           uri = uri[0..4]+domain_parts[-3..-1].join('.')
-          uri += "/"+domain_parts[0]+'/'+parts[3..-1].join('/')
+          uri += '/'+domain_parts[0]+'/'+parts[3..-1].join('/')
         end
       end
 
@@ -31,10 +31,10 @@ module Xeroxer
       if !options[:s3_credentials].nil?
         credentials=options[:s3_credentials]
       elsif !Xeroxer.config[@bucket_name].nil? &&
-            !Xeroxer.config[@bucket_name][:s3_credentials].nil?
+          !Xeroxer.config[@bucket_name][:s3_credentials].nil?
         Xeroxer.config[@bucket_name][:s3_credentials]
       elsif !Xeroxer.config[:s3_credentials].nil? &&
-            !Xeroxer.config[:s3_credentials].empty?# fall back to this default.
+          !Xeroxer.config[:s3_credentials].empty?# fall back to this default.
         credentials=Xeroxer.config[:s3_credentials]
       else
         raise NoS3CredentialsGiven
