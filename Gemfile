@@ -2,6 +2,7 @@ source "http://rubygems.org"
 # Add dependencies required to use your gem here.
 # Example:
 #   gem "activesupport", ">= 2.3.5"
+gem 'nokogiri', "=1.5.10"
 gem 'aws-sdk', "~> 1.8.5"
 #gem 'rake', "0.9.2.2", :require => false
 # Add dependencies to develop your gem here.

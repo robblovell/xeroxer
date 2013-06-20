@@ -14,8 +14,8 @@ module Xeroxer
         domain_parts = parts[2].split('.')
         if (domain_parts.length>3)
           # take out the bucket name because uri doesn't like it.
-          uri = uri[0..4]+"#{domain_parts[-3]}#{domain_parts[-2..-1].map { |p| "."+p }}"
-          uri += "/"+domain_parts[0]+"#{parts[3..-1].map { |p| "/"+p }}"
+          uri = uri[0..4]+domain_parts[-3,-1].join('.')
+          uri += "/"+domain_parts[0]+parts[3..-1].join('/')
         end
       end
 
