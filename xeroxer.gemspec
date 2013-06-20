@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robb Lovell"]
-  s.date = %q{2013-03-25}
+  s.date = %q{2013-06-19}
   s.description = %q{Xeroxer copies files from one url to another.  Three url types are supported: S3, http(s), and files}
   s.email = %q{robblovell@gmail.com}
   s.extra_rdoc_files = [
@@ -30,6 +30,9 @@ Gem::Specification.new do |s|
     "lib/xeroxer/File.rb",
     "lib/xeroxer/HTTP.rb",
     "lib/xeroxer/S3.rb",
+    "lib/xeroxer/example_init.rb",
+    "lib/xeroxer/example_rails_xeroxer_config.yml",
+    "lib/xeroxer/example_xeroxer_config.yml",
     "lib/xeroxer/exceptions.rb",
     "lib/xeroxer/resource.rb",
     "lib/xeroxer/xeroxer.rb",
@@ -53,6 +56,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<nokogiri>, ["= 1.5.10"])
       s.add_runtime_dependency(%q<aws-sdk>, ["~> 1.8.5"])
       s.add_development_dependency(%q<bundler>, ["> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
@@ -62,6 +66,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<awesome_print>, [">= 0"])
     else
+      s.add_dependency(%q<nokogiri>, ["= 1.5.10"])
       s.add_dependency(%q<aws-sdk>, ["~> 1.8.5"])
       s.add_dependency(%q<bundler>, ["> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
@@ -72,6 +77,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<awesome_print>, [">= 0"])
     end
   else
+    s.add_dependency(%q<nokogiri>, ["= 1.5.10"])
     s.add_dependency(%q<aws-sdk>, ["~> 1.8.5"])
     s.add_dependency(%q<bundler>, ["> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
