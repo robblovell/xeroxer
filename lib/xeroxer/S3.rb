@@ -68,6 +68,13 @@ module Xeroxer
     def close()
     end
 
+    #:private
+    #:public_read
+    #:public_read_write
+    #:authenticated_read
+    #:bucket_owner_read (object-only)
+    #:bucket_owner_full_control (object-only)
+    #:log_delivery_write (bucket-only)
     def permissions(permissions)
       @bucket.objects[@key].acl = permissions
 
