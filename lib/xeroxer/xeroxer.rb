@@ -7,10 +7,11 @@ module Xeroxer
     destination.open("w")
     source.open("r")
     destination.write(source)
+    return destination
   end
 
-  def self.permissions(target, entity, permissions, options={})
+  def self.permissions(target, permissions, options={})
     target = Resource.create(target,options)
-    target.permissions(entity,permissions)
+    target.permissions(permissions)
   end
 end

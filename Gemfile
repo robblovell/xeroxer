@@ -13,6 +13,6 @@ group :development,:test do
   gem 'rspec', "~> 2.11.0"
   gem "shoulda", ">= 0"
   gem "rdoc", "~> 3.12"
-  gem "rcov", ">= 0"
+  #gem "rcov", ">= 0"
   gem 'awesome_print'
 end

@@ -84,6 +84,7 @@ describe Xeroxer do
       obj.exists?.should be_true
       obj.content_length.should_not == 0
       obj.content_length.should == @expected_size
+      Xeroxer.permissions(@destination_s3_url, [obj])
     end
   end
 
